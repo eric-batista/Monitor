@@ -11,3 +11,16 @@ Content-Type: application/json
         "Name": "Eric Batista"
     }
 }
+
+###
+
+GET http://localhost:3000/mail-list
+
+###
+
+POST http://localhost:3000/mail-list
+Content-Type: application/json
+
+{
+    "Emails": ["user1@test.com", "user2@test.com", "user3@test.com"]
+}

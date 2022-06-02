@@ -2,6 +2,8 @@ import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common';
 import { Interval } from '@nestjs/schedule';
 import { TweetsService } from '../tweets.service';
 import { Cache } from 'cache-manager';
+import { Queue } from 'bull';
+import { InjectQueue } from '@nestjs/bull';
 
 @Injectable()
 export class CheckNewTweetsTask {
@@ -12,6 +14,8 @@ export class CheckNewTweetsTask {
     private tweetService: TweetsService,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
+    @InjectQueue('emails')
+    private emailsQueue: Queue,
   ) {}
 
   @Interval(5000)
@@ -35,7 +39,7 @@ export class CheckNewTweetsTask {
         ttl: 1 * 60 * 10,
       });
 
-      this.logger.log('Disparo de e-mail');
+      this.emailsQueue.add({});
     }
   }
 }
