@@ -1,1 +1,13 @@
 GET http://localhost:3000/tweets
+
+###
+
+POST http://localhost:3000/tweets
+Content-Type: application/json
+
+{
+    "Text": "Esse é um tweet...",
+    "User": {
+        "Name": "Eric Batista"
+    }
+}
